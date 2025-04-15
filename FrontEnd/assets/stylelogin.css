@@ -47,25 +47,26 @@ table {
 	border-spacing: 0;
 }
 /** end reset css**/
+html {
+    width: 100%;
+    height: 1024px;
+}
 body {
-	max-width: 1140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
-}
-.modeEdition {
-	display: flex;
-    justify-content :center;
-    height : 59px;
-    width : 1140px;
-    background :black;
-    color :white;
-    align-items : center;
+    background-color: #FFFEF8;
 }
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	margin: 50px 0;
+    width: 1140px;
+    
 }
 section {
 	margin: 50px 0
@@ -97,6 +98,7 @@ nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
+
 }
 nav li {
 	padding: 0 10px;
@@ -112,115 +114,50 @@ a:visited {
 li:hover {
 	color: #B1663C;
 }
-#introduction {
-	display: flex;
-	align-items: center;
+/** MAIN**/
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 900px;
 }
-#introduction figure {
-	flex: 1
+.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 379px;
+    gap: 20px;
 }
-#introduction img {
-	display: block;
-	margin: auto;
-	width: 80%;
+.login input {
+    width: 100%;
+    height: 51px;
+    border: none;
+    box-shadow: 0px 4px 14px 0px #00000017;
 }
-
-#introduction article {
-	flex: 1
+.login button {
+    width: 179px;
+    height: 36px;
+    border-radius: 60px;
+    border: none;
+    color: white;
+    background-color: #1D6154;
 }
-#introduction h2 {
-	margin-bottom: 1em;
+.erreur {
+	color: red;
+	font-size: x-large;
+	font-weight: 500;
 }
-
-#introduction p {
-	margin-bottom: 0.5em;
+.login a {
+    text-decoration: underline;
 }
-#portfolio h2 {
-	text-align: center;
-	margin-bottom: 1em;
+/** FOOTER**/
+footer {
+    width: 100%;
+    height: 60px;
 }
-.Btnmodifie {
-	height: 18px;
-    width: 80px;
-	position: absolute;
-	top : 600px;
-	left : 875px;
-}
-#portfolio .btn {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	gap: 5px;
-}
-#portfolio button {
-	max-width: 198px;
-	height: 37px;
-	border-radius: 60px;
-	border-width: 1px;
-	border-color: #1D6154;
-	background: none;
-	color: #1D6154;
-}
-#portfolio button:focus {
-	color: white;
-	background: #1D6154;
-}
-.gallery {
-	width: 100%;
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	grid-column-gap: 20px;
-	grid-row-gap: 20px;
-}
-.gallery img {
-	width: 100%;
-}
-#contact {
-	width: 50%;
-	margin: auto;
-}
-#contact > * {
-	text-align: center;
-
-}
-#contact h2{
-	margin-bottom: 20px;
-}
-#contact form {
-	text-align: left;
-	margin-top:30px;
-	display: flex;
-	flex-direction: column;
-}
-
-#contact input {
-	height: 50px;
-	font-size: 1.2em;
-	border: none;
-	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
-}
-#contact label {
-	margin: 2em 0 1em 0;
-}
-#contact textarea {
-	border: none;
-	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
-}
-
-input[type="submit"]{
-	font-family: 'Syne';
-	font-weight: 700;
-	color: white;
-	background-color: #1D6154;
-	margin : 2em auto ;
-	width: 180px;
-	text-align: center;
-	border-radius: 60px ;
-}
-
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em
+	margin: 2em;
+    width: 90%;
 }
-
