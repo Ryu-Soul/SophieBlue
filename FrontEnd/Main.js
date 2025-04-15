@@ -1,6 +1,6 @@
 /** First page**/
 
-/** Function */
+/** Fetch pour récupérer les informations sur le swagger */
 const gallery = document.querySelector(".gallery")
 fetch("http://localhost:5678/api/works")
     .then(response => response.json())
@@ -11,7 +11,7 @@ fetch("http://localhost:5678/api/works")
         });
     })
     .catch(error => console.log(error));
-
+/** Fonction pour l'affichage des images */
 function card(imgUrl, title, categoryId) {
     const figure = document.createElement("figure")
     const img = document.createElement("img")
@@ -26,11 +26,13 @@ function card(imgUrl, title, categoryId) {
     gallery.appendChild(figure);
     
 }
-
+/** Création des boutons pour filtrer*/
     const filtres = document.querySelector(".filtres")
     const BtnTous = document.createElement("button");
     BtnTous.innerText = "Tous";
     filtres.appendChild(BtnTous);
+    BtnTous.click();
+    BtnTous.focus();
 
     fetch("http://localhost:5678/api/categories")
     .then(response => response.json())
@@ -42,36 +44,29 @@ function card(imgUrl, title, categoryId) {
     })
     .catch(error => console.log(error));
 
-    
+/** Fonction pour les filtres */    
 function filtre(id, name) {
     const Btnfiltre = document.createElement("button");
     Btnfiltre.textContent = name;
     Btnfiltre.dataset.category = id;
     filtres.appendChild(Btnfiltre);
-    
     filtres.classList.add("btn") 
-
     Btnfiltre.addEventListener("click", function () {
         const figures = document.querySelectorAll(".gallery figure");
         const figuresArray = Array.from(figures); 
-    
-        
         figuresArray.forEach(fig => {
             fig.style.display = fig.dataset.category === Btnfiltre.dataset.category ? "block" : "none";
         });
     })
-
     BtnTous.addEventListener("click", function () {
         const figures = document.querySelectorAll(".gallery figure");
         const figuresArray = Array.from(figures); 
-    
-        
         figuresArray.forEach(fig => {
             fig.style.display = "block"
         });
     })
 }
-    
+/** ModeEdition et logOut */
 const token = localStorage.getItem("token")
     console.log(token)
 
