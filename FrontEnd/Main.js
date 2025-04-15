@@ -28,62 +28,36 @@ function card(imgUrl, title, categoryId) {
 }
 
     const filtres = document.querySelector(".filtres")
-
     const BtnTous = document.createElement("button");
     BtnTous.innerText = "Tous";
-
-    const BtnObjets = document.createElement("button");
-    BtnObjets.innerText = "Objets";
-
-    const BtnAppartements = document.createElement("button");
-    BtnAppartements.innerText = "Appartements";
-
-    const BtnHotelsrestaurants = document.createElement("button");
-    BtnHotelsrestaurants.innerText = "Hotels & restaurants";
-
-    const boutons = [BtnTous, BtnObjets, BtnAppartements, BtnHotelsrestaurants];
-    boutons.forEach(bouton => {
-        bouton.style.border = "1px solid #1D6154";
-        bouton.style.text = "#1D6154";
-    })
-
     filtres.appendChild(BtnTous);
-    filtres.appendChild(BtnObjets);
-    filtres.appendChild(BtnAppartements);
-    filtres.appendChild(BtnHotelsrestaurants);
-    filtres.style.display = "flex";
-    filtres.style.justifyContent = "center";
-    filtres.style.gap = "5px";
-    filtres.style.height = "37px";      
-    
-    
-    BtnObjets.addEventListener("click", function () {
-        const figures = document.querySelectorAll(".gallery figure");
-        const figuresArray = Array.from(figures); 
-    
-        
-        figuresArray.forEach(fig => {
-            fig.style.display = fig.dataset.category === "1" ? "block" : "none";
+
+    fetch("http://localhost:5678/api/categories")
+    .then(response => response.json())
+    .then(data => {
+        data.forEach(element => {
+            filtre(element.id, element.name)
+            console.log(element);
         });
     })
+    .catch(error => console.log(error));
 
-    BtnAppartements.addEventListener("click", function () {
+    
+function filtre(id, name) {
+    const Btnfiltre = document.createElement("button");
+    Btnfiltre.textContent = name;
+    Btnfiltre.dataset.category = id;
+    filtres.appendChild(Btnfiltre);
+    
+    filtres.classList.add("btn") 
+
+    Btnfiltre.addEventListener("click", function () {
         const figures = document.querySelectorAll(".gallery figure");
         const figuresArray = Array.from(figures); 
     
         
         figuresArray.forEach(fig => {
-            fig.style.display = fig.dataset.category === "2" ? "block" : "none";
-        });
-    })
-
-    BtnHotelsrestaurants.addEventListener("click", function () {
-        const figures = document.querySelectorAll(".gallery figure");
-        const figuresArray = Array.from(figures); 
-    
-        
-        figuresArray.forEach(fig => {
-            fig.style.display = fig.dataset.category === "3" ? "block" : "none";
+            fig.style.display = fig.dataset.category === Btnfiltre.dataset.category ? "block" : "none";
         });
     })
 
@@ -96,7 +70,7 @@ function card(imgUrl, title, categoryId) {
             fig.style.display = "block"
         });
     })
-
+}
     
 const token = localStorage.getItem("token")
     console.log(token)
@@ -113,7 +87,7 @@ const token = localStorage.getItem("token")
             lienConnexion.href = "./login.html"
             BtnConnexion.appendChild(lienConnexion)
             modeEdition.innerHTML = ""
-            modeEdition.style = "none"
+            modeEdition.classList.add("")
         })
 
 
