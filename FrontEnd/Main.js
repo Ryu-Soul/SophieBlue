@@ -26,49 +26,11 @@ function card(imgUrl, title, categoryId) {
     gallery.appendChild(figure);
     
 }
-/** Création des boutons pour filtrer*/
-    const filtres = document.querySelector(".filtres")
-    const BtnTous = document.createElement("button");
-    BtnTous.innerText = "Tous";
-    filtres.appendChild(BtnTous);
-    BtnTous.click();
-    BtnTous.focus();
 
-    fetch("http://localhost:5678/api/categories")
-    .then(response => response.json())
-    .then(data => {
-        data.forEach(element => {
-            filtre(element.id, element.name)
-            console.log(element);
-        });
-    })
-    .catch(error => console.log(error));
-
-/** Fonction pour les filtres */    
-function filtre(id, name) {
-    const Btnfiltre = document.createElement("button");
-    Btnfiltre.textContent = name;
-    Btnfiltre.dataset.category = id;
-    filtres.appendChild(Btnfiltre);
-    filtres.classList.add("btn") 
-    Btnfiltre.addEventListener("click", function () {
-        const figures = document.querySelectorAll(".gallery figure");
-        const figuresArray = Array.from(figures); 
-        figuresArray.forEach(fig => {
-            fig.style.display = fig.dataset.category === Btnfiltre.dataset.category ? "block" : "none";
-        });
-    })
-    BtnTous.addEventListener("click", function () {
-        const figures = document.querySelectorAll(".gallery figure");
-        const figuresArray = Array.from(figures); 
-        figuresArray.forEach(fig => {
-            fig.style.display = "block"
-        });
-    })
-}
 /** ModeEdition et logOut */
 const token = localStorage.getItem("token")
     console.log(token)
+const filtres = document.querySelector(".filtres")
 
     if (token) {
         const BtnConnexion = document.getElementById("login/out")
@@ -82,14 +44,14 @@ const token = localStorage.getItem("token")
             lienConnexion.href = "./login.html"
             BtnConnexion.appendChild(lienConnexion)
             modeEdition.innerHTML = ""
-            modeEdition.classList.add("")
+            modeEdition.classList.remove("modeEdition")
         })
 
-
-        filtres.removeChild(BtnTous)
-        filtres.removeChild(BtnObjets)
-        filtres.removeChild(BtnAppartements)
-        filtres.removeChild(BtnHotelsrestaurants)
+        const btnfiltres = filtres.querySelectorAll("button")
+        btnfiltres.forEach((btn) =>{
+            btn.remove();
+        })
+        
 
         const modeEdition = document.getElementById("ModeEdition")
         modeEdition.innerText = "Mode édition";
@@ -111,8 +73,51 @@ const token = localStorage.getItem("token")
         BtnModifié.prepend(icone2)
     
     } else {
-        
-    }
+
+        /** Création des boutons pour filtrer*/
+    
+    const BtnTous = document.createElement("button");
+    BtnTous.innerText = "Tous";
+    filtres.appendChild(BtnTous);
+    BtnTous.click();
+    BtnTous.focus();
+
+    fetch("http://localhost:5678/api/categories")
+    .then(response => response.json())
+    .then(data => {
+        data.forEach(element => {
+            filtre(element.id, element.name)
+            console.log(element);
+        });
+    })
+    .catch(error => console.log(error));
+
+/** Fonction pour les filtres */    
+function filtre(id, name) {
+    /** Boutons pour filtrer*/ 
+    const Btnfiltre = document.createElement("button");
+    Btnfiltre.textContent = name;
+    Btnfiltre.dataset.category = id;
+
+    filtres.appendChild(Btnfiltre);
+    filtres.classList.add("btn")
+
+    Btnfiltre.addEventListener("click", function () {
+        const figures = document.querySelectorAll(".gallery figure");
+        const figuresArray = Array.from(figures); 
+        figuresArray.forEach(fig => {
+            fig.style.display = fig.dataset.category === Btnfiltre.dataset.category ? "block" : "none";
+        });
+    })
+    BtnTous.addEventListener("click", function () {
+        const figures = document.querySelectorAll(".gallery figure");
+        const figuresArray = Array.from(figures); 
+        figuresArray.forEach(fig => {
+            fig.style.display = "block"
+        });
+    })
+}
+}
 
 
 
