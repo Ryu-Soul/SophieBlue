@@ -32,6 +32,8 @@ const token = localStorage.getItem("token");
 const filtres = document.querySelector(".filtres");
 const portfolioModal = document.getElementById("portfolioModal");
 const feuilleModal = document.getElementById("feuilleModal");
+const portfolioModal2 = document.getElementById("portfolioModal2");
+const feuilleModal2 = document.getElementById("feuilleModal2");
 
 if (token) {
     const BtnConnexion = document.getElementById("login/out");
@@ -105,6 +107,10 @@ if (token) {
                 Modalfigure.appendChild(Modalimg);
                 Modalfigure.appendChild(ModalTrash);
                 Modalgallery.appendChild(Modalfigure);
+
+                ModalTrash.addEventListener("click", function() {
+                    Modalfigure.remove();  
+                });
                 }
 
         // Supprimer ancienne croix s'il y en a une
@@ -124,19 +130,51 @@ if (token) {
         });
 
         const barreModal = document.createElement("span");
-                barreModal.classList.add("barreModal");
-                feuilleModal.appendChild(barreModal);
+        barreModal.classList.add("barreModal");
+        feuilleModal.appendChild(barreModal);
 
-                const BtnAjoutPhoto = document.createElement("button");
-                BtnAjoutPhoto.classList.add("photoBtn");
-                BtnAjoutPhoto.innerText = "Ajouter une photo";
-                feuilleModal.appendChild(BtnAjoutPhoto);
+        const BtnAjoutPhoto = document.createElement("button");
+        BtnAjoutPhoto.classList.add("photoBtn");
+        BtnAjoutPhoto.innerText = "Ajouter une photo";
+        feuilleModal.appendChild(BtnAjoutPhoto);
+
+                BtnAjoutPhoto.addEventListener("click", function () {
+                    portfolioModal.style.display = "none";
+                    portfolioModal.setAttribute("aria-hidden", "true");
+
+                    feuilleModal.removeChild(barreModal)
+                    feuilleModal.removeChild(BtnAjoutPhoto)
+
+                    Modalgallery.innerHTML = "";
+
+                    portfolioModal2.setAttribute("aria-hidden", "false");
+                    portfolioModal2.style.display = "flex";
+
+                    feuilleModal2.prepend(iconeCroix);
+
+                    feuilleModal2.appendChild(barreModal);
+
+                    feuilleModal2.appendChild(BtnAjoutPhoto);
+
+                    
+                        fetch("http://localhost:5678/api/categories")
+                        .then(response => response.json())
+                        .then(data => {
+                            data.forEach(element => {
+                                createSubmitList(element.id, element.name);
+                            });
+                        })
+                        .catch(error => console.log(error));
+                        
+                        /**function createSubmitList() {
+                            const CategorieList = document.createElement("datalist")
+
+                    }**/
+                })
             })
 
         
-        BtnAjoutPhoto.addEventListener("click", function () {
-            
-        })
+        
 
 } else {
     createFilterButtons();
