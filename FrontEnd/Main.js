@@ -1,21 +1,22 @@
-/** First page**/
+/** First page **/
 
-/** Fetch pour récupérer les informations sur le swagger */
-const gallery = document.querySelector(".gallery")
+/** Fetch pour récupérer les informations pour la gallery */
+const gallery = document.querySelector(".gallery");
+
 fetch("http://localhost:5678/api/works")
     .then(response => response.json())
     .then(data => {
         data.forEach(element => {
-            card(element.imageUrl, element.title, element.categoryId)
-            console.log(element);
+            card(element.imageUrl, element.title, element.categoryId);
         });
     })
     .catch(error => console.log(error));
+
 /** Fonction pour l'affichage des images */
 function card(imgUrl, title, categoryId) {
-    const figure = document.createElement("figure")
-    const img = document.createElement("img")
-    const figcaption = document.createElement("figcaption")
+    const figure = document.createElement("figure");
+    const img = document.createElement("img");
+    const figcaption = document.createElement("figcaption");
     img.crossOrigin = "anonymous";
     img.src = imgUrl;
     img.alt = title;
@@ -24,66 +25,69 @@ function card(imgUrl, title, categoryId) {
     figure.appendChild(img);
     figure.appendChild(figcaption);
     gallery.appendChild(figure);
-    
 }
 
 /** ModeEdition et logOut */
-const token = localStorage.getItem("token")
-    console.log(token)
-const filtres = document.querySelector(".filtres")
-const portfolioModal = document.getElementById("portfolioModal")
-const feuilleModal = document.getElementById("feuilleModal")
-    if (token) {
-        const BtnConnexion = document.getElementById("login/out")
-        const lienConnexion = document.getElementById("lienConnexion")
-        BtnConnexion.innerText = "Logout"
-        
+const token = localStorage.getItem("token");
+const filtres = document.querySelector(".filtres");
+const portfolioModal = document.getElementById("portfolioModal");
+const feuilleModal = document.getElementById("feuilleModal");
 
-        BtnConnexion.addEventListener("click", function(){
-            localStorage.removeItem("token")
-            BtnConnexion.innerText = ""
-            lienConnexion.href = "./login.html"
-            BtnConnexion.appendChild(lienConnexion)
-            modeEdition.innerHTML = ""
-            modeEdition.classList.remove("modeEdition")
-        })
+if (token) {
+    const BtnConnexion = document.getElementById("login/out");
+    const lienConnexion = document.getElementById("lienConnexion");
+    BtnConnexion.innerText = "Logout";
 
-        const btnfiltres = filtres.querySelectorAll("button")
-        btnfiltres.forEach((btn) =>{
-            btn.remove();
-        })
-        
+    BtnConnexion.addEventListener("click", function () {
+        localStorage.removeItem("token");
+        BtnConnexion.innerText = "";
+        lienConnexion.href = "./login.html";
+        BtnConnexion.appendChild(lienConnexion);
+        modeEdition.innerHTML = "";
+        modeEdition.classList.remove("modeEdition");
+        BtnModifié.remove();
+        filtres.innerHTML = ""; 
+        createFilterButtons();  
+    });
 
-        const modeEdition = document.getElementById("ModeEdition")
-        modeEdition.innerText = "Mode édition";
-        modeEdition.classList.add("modeEdition");
-        
-        const icone = document.createElement("i");
-        icone.classList.add("fa-solid" , "fa-pen-to-square");
-        icone.style.Color = "white";
-        
-        modeEdition.prepend(icone);
+    const btnfiltres = filtres.querySelectorAll("button");
+    btnfiltres.forEach((btn) => {
+        btn.remove();
+    });
 
-        
-        const BtnModifié = document.getElementById("modifié");
-        BtnModifié.classList.add("Btnmodifie")
-        BtnModifié.innerText = "Modifié"
-        const icone2 = document.createElement("i");
-        icone2.classList.add("fa-solid" , "fa-pen-to-square");
-        icone2.style.Color = "white";
-        BtnModifié.prepend(icone2)
+    const modeEdition = document.getElementById("ModeEdition");
+    modeEdition.innerHTML = "";
+    modeEdition.classList.add("modeEdition");
 
-        BtnModifié.addEventListener("click", function(){
-            portfolioModal.setAttribute("aria-hidden", "false")
-            portfolioModal.style.display = "flex";
-            const Modalgallery = document.querySelector(".Modalgallery")
+    const icone = document.createElement("i");
+    icone.classList.add("fa-solid", "fa-pen-to-square");
+    icone.style.color = "white";
+    modeEdition.prepend(icone);
+    modeEdition.append(" Mode édition");
 
-            fetch("http://localhost:5678/api/works")
+    const BtnModifié = document.getElementById("modifié");
+    BtnModifié.innerHTML = "";
+    BtnModifié.classList.add("Btnmodifie");
+
+    const icone2 = document.createElement("i");
+    icone2.classList.add("fa-solid", "fa-pen-to-square");
+    
+    BtnModifié.appendChild(icone2);
+
+    const texteModifie = document.createTextNode("  Modifié");
+    BtnModifié.appendChild(texteModifie);
+
+    BtnModifié.addEventListener("click", function () {
+        portfolioModal.setAttribute("aria-hidden", "false");
+        portfolioModal.style.display = "flex";
+        const Modalgallery = document.querySelector(".modalGallery");
+         
+
+        fetch("http://localhost:5678/api/works")
             .then(response => response.json())
             .then(data => {
                 data.forEach(element => {
-                    Modalcard(element.imageUrl, element.categoryId)
-                    console.log(element);
+                    Modalcard(element.imageUrl, element.categoryId);
                 });
             })
             .catch(error => console.log(error));
@@ -103,12 +107,23 @@ const feuilleModal = document.getElementById("feuilleModal")
                 Modalgallery.appendChild(Modalfigure);
                 }
 
-                const iconeCroix = document.createElement("i");
-                iconeCroix.classList.add("fa-solid", "fa-xmark");
-                feuilleModal.prepend(iconeCroix);
-                iconeCroix.classList.add("ModaliconeCroix")
+        // Supprimer ancienne croix s'il y en a une
+        const ancienneCroix = feuilleModal.querySelector(".ModaliconeCroix");
+        if (ancienneCroix) ancienneCroix.remove();
 
-                const barreModal = document.createElement("span");
+        const iconeCroix = document.createElement("i");
+        iconeCroix.classList.add("fa-solid", "fa-xmark", "ModaliconeCroix");
+        feuilleModal.prepend(iconeCroix);
+
+        iconeCroix.addEventListener("click", function () {
+            portfolioModal.style.display = "none";
+            portfolioModal.setAttribute("aria-hidden", "true");
+            Modalgallery.innerHTML = "";
+            feuilleModal.removeChild(barreModal)
+            feuilleModal.removeChild(BtnAjoutPhoto)
+        });
+
+        const barreModal = document.createElement("span");
                 barreModal.classList.add("barreModal");
                 feuilleModal.appendChild(barreModal);
 
@@ -118,12 +133,19 @@ const feuilleModal = document.getElementById("feuilleModal")
                 feuilleModal.appendChild(BtnAjoutPhoto);
             })
 
+        
+        BtnAjoutPhoto.addEventListener("click", function () {
             
+        })
 
-    } else {
+} else {
+    createFilterButtons();
+}
 
-        /** Création des boutons pour filtrer*/
-    
+/** Fonction pour créer les filtres */
+function createFilterButtons() {
+    filtres.innerHTML = ""; 
+
     const BtnTous = document.createElement("button");
     BtnTous.innerText = "Tous";
     filtres.appendChild(BtnTous);
@@ -131,43 +153,35 @@ const feuilleModal = document.getElementById("feuilleModal")
     BtnTous.focus();
 
     fetch("http://localhost:5678/api/categories")
-    .then(response => response.json())
-    .then(data => {
-        data.forEach(element => {
-            filtre(element.id, element.name)
-            console.log(element);
-        });
-    })
-    .catch(error => console.log(error));
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(element => {
+                createFilter(element.id, element.name);
+            });
+        })
+        .catch(error => console.log(error));
 
-    /** Fonction pour les filtres */    
-    function filtre(id, name) {
-        /** Boutons pour filtrer*/ 
+    function createFilter(id, name) {
         const Btnfiltre = document.createElement("button");
         Btnfiltre.textContent = name;
         Btnfiltre.dataset.category = id;
-
         filtres.appendChild(Btnfiltre);
-        filtres.classList.add("btn")
+        filtres.classList.add("btn");
 
         Btnfiltre.addEventListener("click", function () {
             const figures = document.querySelectorAll(".gallery figure");
-            const figuresArray = Array.from(figures); 
-            figuresArray.forEach(fig => {
+            figures.forEach(fig => {
                 fig.style.display = fig.dataset.category === Btnfiltre.dataset.category ? "block" : "none";
             });
-        })
+        });
+
         BtnTous.addEventListener("click", function () {
             const figures = document.querySelectorAll(".gallery figure");
-            const figuresArray = Array.from(figures); 
-            figuresArray.forEach(fig => {
-                fig.style.display = "block"
+            figures.forEach(fig => {
+                fig.style.display = "block";
             });
-        })
+        });
     }
 }
 
-
-
     
-
