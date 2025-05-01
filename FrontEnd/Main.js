@@ -47,7 +47,7 @@ if (token) {
         BtnConnexion.appendChild(lienConnexion);
         modeEdition.innerHTML = "";
         modeEdition.classList.remove("modeEdition");
-        BtnModifié.remove();
+        BtnModifié.innerHTML = "";
         filtres.innerHTML = ""; 
         createFilterButtons();  
     });
@@ -82,6 +82,7 @@ if (token) {
     BtnModifié.addEventListener("click", function () {
         portfolioModal.setAttribute("aria-hidden", "false");
         portfolioModal.style.display = "flex";
+        document.body.style.overflowY = "hidden";
         const Modalgallery = document.querySelector(".modalGallery");
          
 
@@ -89,12 +90,12 @@ if (token) {
             .then(response => response.json())
             .then(data => {
                 data.forEach(element => {
-                    Modalcard(element.imageUrl, element.categoryId);
+                    Modalcard(element.imageUrl, element.id);
                 });
             })
             .catch(error => console.log(error));
-
-            function Modalcard(imgUrl, categoryId) {
+        // Fonction pour créer les
+            function Modalcard(imgUrl, id) {
                 const Modalfigure = document.createElement("Modalfigure");
                 const Modalimg = document.createElement("img");
                 const ModalTrash = document.createElement("i");
@@ -102,12 +103,12 @@ if (token) {
                 ModalTrash.classList.add("IconeTrash");
                 Modalimg.crossOrigin = "anonymous";
                 Modalimg.src = imgUrl;
-                Modalfigure.dataset.category = categoryId;
+                Modalfigure.dataset.id = id;
                 Modalfigure.classList.add("ModalFigure");
                 Modalfigure.appendChild(Modalimg);
                 Modalfigure.appendChild(ModalTrash);
                 Modalgallery.appendChild(Modalfigure);
-
+        // Supprimer une image
                 ModalTrash.addEventListener("click", function() {
                     Modalfigure.remove();  
                 });
@@ -127,6 +128,7 @@ if (token) {
             Modalgallery.innerHTML = "";
             feuilleModal.removeChild(barreModal)
             feuilleModal.removeChild(BtnAjoutPhoto)
+            document.body.style.overflowY = "visible";
         });
 
         const barreModal = document.createElement("span");
@@ -161,20 +163,21 @@ if (token) {
                         .then(response => response.json())
                         .then(data => {
                             data.forEach(element => {
-                                createSubmitList(element.id, element.name);
+                                createSubmitList(element.name);
                             });
                         })
                         .catch(error => console.log(error));
                         
-                        /**function createSubmitList() {
+                        function createSubmitList(name) {
                             const CategorieList = document.createElement("datalist")
-
-                    }**/
+                            const option = document.createElement("option")
+                            option.value = name;
+                            CategorieList.id = "Categorie-list";
+                            CategorieList.appendChild(option)
+                    }
                 })
             })
 
-        
-        
 
 } else {
     createFilterButtons();
@@ -220,6 +223,8 @@ function createFilterButtons() {
             });
         });
     }
-}
 
     
+}
+
+   
