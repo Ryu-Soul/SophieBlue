@@ -38,7 +38,14 @@ const feuilleModal2 = document.getElementById("feuilleModal2");
 const BoutonNav = document.getElementById("BoutonNav");
 const formulaire = document.getElementById("formulaire");
 const formulaireModal2 = document.getElementById("formulaireModal2");
+const imageFormulaire = document.getElementById("image-formulaire");
 
+
+// Création du bouton "Valider
+const BtnValider = document.createElement("button");
+BtnValider.classList.add("BtnValider");
+BtnValider.innerText = "Valider";
+feuilleModal2.appendChild(BtnValider);
 
 
 if (token) {
@@ -113,15 +120,17 @@ if (token) {
                 Modalfigure.appendChild(Modalimg);
                 Modalfigure.appendChild(ModalTrash);
                 Modalgallery.appendChild(Modalfigure);
+                console.log(ModalTrash)
         // Supprimer une image dans la modal 1
-                ModalTrash.addEventListener("click", function() {
-                    
+                ModalTrash.addEventListener("click", function(e) {
+                    console.log(e.target)
+                    console.log(Modalfigure.dataset.id)
+                    console.log(token)
                     fetch(`http://localhost:5678/api/works/${Modalfigure.dataset.id}`, {
                         method : "DELETE",
                         headers: {
                             "Content-Type": "application/json",
-                            Authorization: `Bearer ${token}`,
-                            Accept: "application/json", 
+                            Authorization: `Bearer ${JSON.parse(token)}`
                           },
                     })
                     .then(response => {
@@ -131,19 +140,16 @@ if (token) {
                         if (response.status === 500) {
                             alert("comportement inattendu");
                         }
-                        if (response.status === 200) {
+                        if (response.status === 204) {
                             alert("l'élement a bien été supprimé");
                             Modalfigure.remove()
                             const figureToDelete = document.querySelector(`.gallery figure[data-id="${id}"]`);
                             figureToDelete.remove()
                         }
-                        return response.json()})
-                    .then(data => {
-                        console.log(data);
-                    })
-                    .catch (error => console.log(error))
+                        return
                 });
-                }
+                })
+            };
 
         // Supprimer ancienne croix s'il y en a une
         const ancienneCroix = feuilleModal.querySelector(".ModaliconeCroix");
@@ -218,8 +224,8 @@ if (token) {
                         PhotoInput.accept = "image/jpeg, image/png";
                         PhotoInput.hidden = true;
                         const PreviewImage = document.createElement("img");
-                        PreviewImage.style.width = "420px";
-                        PreviewImage.style.height = "169px";
+                        PreviewImage.style.width = "129px";
+                        PreviewImage.style.height = "193px";
                         PreviewImage.hidden = true;
                         formulaire.appendChild(PreviewImage);
                       // Création du label "Ajout photo"
@@ -240,6 +246,9 @@ if (token) {
                             };
                             PreviewImage.hidden = false;
                             reader.readAsDataURL(file); // Lit le fichier image
+                            imageFormulaire.hidden = true;
+                            labelPhoto.style.display = "none";
+                            infoText.hidden = true;
                         }
                     });
                         
@@ -279,6 +288,9 @@ if (token) {
                         const dataListCategorie = document.createElement("datalist");
                         dataListCategorie.id = "Categorie-list";
 
+                        
+
+
                         formulaire.appendChild(PhotoInput);
                         formulaire.appendChild(labelPhoto);
                         formulaire.appendChild(infoText);
@@ -290,34 +302,36 @@ if (token) {
 
                     feuilleModal2.appendChild(barreModal);
 
-                    feuilleModal2.appendChild(BtnAjoutPhoto);
-                    BtnAjoutPhoto.innerText = "Valider"
+                    
                     
                         fetch("http://localhost:5678/api/categories")
                         .then(response => response.json())
                         .then(data => {
                             data.forEach(element => {
-                                createSubmitList(element.name);
+                                createSubmitList(element.name, element.id);
                             });
                         })
                         .catch(error => console.log(error));
                         
-                        function createSubmitList(name) {
+                        function createSubmitList(name, id) {
                             
                             const option = document.createElement("option")
                             option.value = name;
+                            option.dataset.id = id;
                             dataListCategorie.appendChild(option)
                     }
 
-                    const DocumentImage = document.getElementById("DocumentImage");
-                    const Titre = document.getElementById("Titre");
-                    const Categorie = document.getElementById("Categorie");
-
-                    BtnAjoutPhoto.addEventListener("click", async () => {
-                        const DocumentImageValue = DocumentImage.files[0];
-                        const TitreValue = Titre.value.trim();
-                        const CategorieValue = Categorie.value.trim();
                     
+                    
+                    BtnValider.addEventListener("click", async () => {
+                        const file = PhotoInput.files[0];
+                        const TitreValue = inputTitre.value.trim();
+                        const selectedOption = [...dataListCategorie.options].find(option => option.value === inputCategorie.value);
+                        const CategorieValue = selectedOption ? selectedOption.dataset.id : null;
+                        console.log(file)
+                        console.log(TitreValue)
+                        console.log(CategorieValue)
+
                         if (TitreValue === "" || CategorieValue === "") {
                             alert("Vous devez rentrer un Titre et/ou une catégorie");
                             return;
@@ -327,31 +341,32 @@ if (token) {
                     
                         fetch("http://localhost:5678/api/works", {
                             method : "POST",
-                            headers: { "Content-Type": "application/json" },
+                            headers: { 
+                                "Content-Type": "application/json",
+                                Authorization: `Bearer ${JSON.parse(token)}`
+                             },
                             body: JSON.stringify({
                                 title: TitreValue,
                                 category: CategorieValue,
-                                imageUrl : DocumentImageValue
+                                image: file
                             }),
                         })
                         .then(response => {
-                            Erreurspan.textContent = "";
                             if (response.status === 400) {
-                                Erreurspan.textContent = "Mauvaise requete";
+                                alert("Mauvaise requete");
                             }
                             if (response.status === 401) {
-                                Erreurspan.textContent = "Non authorisé";
+                                alert("Non authorisé");
                             }
                             if (response.status === 500) {
-                                Erreurspan.textContent = "Erreur inconnu";
+                                alert("Erreur inconnu");
                             }
-                            if (response.status === 200) {
+                            if (response.status === 201) {
                                 alert("crée")
+
                             }
                             return response.json()})
-                        .then(data => {
-                            console.log(data);
-                        })
+                        
                         .catch (error => console.log(error))
                     })
                 })
@@ -401,9 +416,7 @@ function createFilterButtons() {
                 fig.style.display = "block";
             });
         });
-    }
-
-    
+    }   
 }
 
    

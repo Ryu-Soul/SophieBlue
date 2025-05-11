@@ -241,7 +241,6 @@ li:hover {
 	height: 51px;
 }
 .upload-button {
-	
 	display: inline-block;
 	padding: 10px 20px;
 	background-color: #cbd6dc;
@@ -250,8 +249,7 @@ li:hover {
 	font-size: 14px;
 	border-radius: 30px;
 	cursor: pointer;
-	margin-bottom: 10px;
-	  
+	margin-bottom: 10px;	  
 }
 .preview-icon {
 	width: 80px;
@@ -263,6 +261,14 @@ li:hover {
 	color: #444;
 	margin: 0;
   }
+.BtnValider {
+	width: 237px;
+	height: 36px;
+	border-radius: 60px;
+	border-width: 1px;
+	background-color: #1D6154;
+	color: white;
+}
 .modalGallery {
 	display: flex;
 	flex-wrap: wrap;
