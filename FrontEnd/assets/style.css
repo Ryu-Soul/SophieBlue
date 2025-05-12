@@ -272,8 +272,8 @@ li:hover {
 .modalGallery {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 20px 10px;
-	width: 430px;
+	gap: 20px 15px;
+	width: 420px;
 }
 .ModaliconeCroix {
 	position: relative;
@@ -287,17 +287,22 @@ li:hover {
 }
 .ModalFigure {
 	display: flex;
-	width: 76.86px;
+	width: 70.12px;
 	height: 102.56px;
 }
 .Modalgallery img {
-	width: 76.86px;
+	width: 70.12px;
 	height: 102.56px;
 }
 .IconeTrash {
 	position: relative;
-	top: 5px;
-	right: 15px;
+	top: 0px;
+	right: 20px;
+	width: 10px;
+	height: 10px;
+	padding: 10px 5px 5px 5px;
+	color: white;
+	background-color: black;
 }
 .barreModal{
 	width: 420px;
