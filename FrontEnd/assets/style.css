@@ -52,6 +52,9 @@ body {
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
+	display: flex;
+	flex-direction: column;
+	background-color: #FFFEF8;
 }
 body.modal-open {
     overflow: hidden;
@@ -59,8 +62,10 @@ body.modal-open {
 .modeEdition {
 	display: flex;
     justify-content :center;
+	gap: 10px;
     height : 59px;
-    width : 1140px;
+    width : 1440px;
+	margin-left: -150px;
     background :black;
     color :white;
     align-items : center;
@@ -71,10 +76,15 @@ header {
 	justify-content: space-between;
 	margin: 50px 0
 }
+main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 20px;
+}
 section {
 	margin: 50px 0
 }
-
 h1{
 	display: flex;
 	flex-direction: column;
@@ -83,14 +93,11 @@ h1{
 	font-weight: 800;
 	color: #B1663C
 }
-
 h1 > span {
 	font-family: 'Work Sans';
 	font-size:10px;
 	letter-spacing: 0.1em;
-;
 }
-
 h2{
 	font-family: 'Syne';
 	font-weight: 700;
@@ -117,6 +124,7 @@ li:hover {
 	color: #B1663C;
 }
 #introduction {
+	width: 945px;
 	display: flex;
 	align-items: center;
 }
@@ -125,30 +133,37 @@ li:hover {
 }
 #introduction img {
 	display: block;
-	margin: auto;
-	width: 80%;
+	margin-right: 72px;
+	max-width: 474px;
+	max-height: 355px;
 }
-
 #introduction article {
 	flex: 1
 }
 #introduction h2 {
+	max-width: 404px;
 	margin-bottom: 1em;
 }
-
 #introduction p {
+	max-width: 404px;
 	margin-bottom: 0.5em;
+}
+#portfolio {
+	display: flex;
+	flex-direction: column;
 }
 #portfolio h2 {
 	text-align: center;
 	margin-bottom: 1em;
 }
 .Btnmodifie {
+	display: flex;
+	gap: 10px;
 	height: 18px;
     width: 80px;
-	position: absolute;
-	top : 600px;
-	left : 875px;
+	position: relative;
+	bottom : 50px;
+	left : 600px;
 }
 #portfolio .btn {
 	display: flex;
@@ -172,14 +187,21 @@ li:hover {
 	outline: none;
 }
 .gallery {
-	width: 100%;
+	width: 945px;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
-	grid-column-gap: 20px;
-	grid-row-gap: 20px;
+	grid-column-gap: 15px;
+	grid-row-gap: 30px;
+}
+.figure {
+	width: 305px;
+	height: 407px;
 }
 .gallery img {
+	max-width: 305px;
 	width: 100%;
+	max-height: 407px;
+	height: 100%;
 }
 .modal {
 	display: none;
@@ -197,7 +219,7 @@ li:hover {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: space-around;
+	gap: 50px;
 	width: 600px;
 	height: 600px;
 	top: 630px;
@@ -255,44 +277,48 @@ li:hover {
 	width: 80px;
 	margin-bottom: 15px;
 	opacity: 0.5;
-  }
+}
 .info-text {
 	font-size: 12px;
 	color: #444;
 	margin: 0;
-  }
+}
 .BtnValider {
 	width: 237px;
 	height: 36px;
 	border-radius: 60px;
 	border-width: 1px;
-	background-color: #1D6154;
+	background-color: #A7A7A7;
 	color: white;
 }
 .modalGallery {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 20px 15px;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-row-gap: 10px;
 	width: 420px;
 }
-.ModaliconeCroix {
+.Modal1iconeCroix {
 	position: relative;
-	top: 0px;
+	top: 25px;
+	left: 250px;
+}
+.Modal2iconeCroix {
+	position: relative;
+	top: 25px;
 	left: 250px;
 }
 .ModaliconeRetour {
 	position: relative;
-	top: 0px;
+	top: 25px;
 	right: 250px;
 }
 .ModalFigure {
 	display: flex;
-	width: 70.12px;
-	height: 102.56px;
+	max-width: 76.86px;
 }
-.Modalgallery img {
-	width: 70.12px;
-	height: 102.56px;
+.ModalFigure img {
+	width: 100%;
+	height: 102.57px;	
 }
 .IconeTrash {
 	position: relative;
@@ -305,6 +331,7 @@ li:hover {
 	background-color: black;
 }
 .barreModal{
+	position: relative;
 	width: 420px;
 	border-bottom: 1px solid;
 }
@@ -358,10 +385,15 @@ input[type="submit"]{
 	text-align: center;
 	border-radius: 60px ;
 }
-
+footer {
+	background-color: white;
+	height: 60px;
+	width: 1440px;
+	margin-left: -150px;
+}
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em
+	margin: 2em;
 }
 
