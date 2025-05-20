@@ -221,7 +221,8 @@ li:hover {
 	align-items: center;
 	gap: 50px;
 	width: 600px;
-	height: 600px;
+	min-height: 600px;
+	overflow-y: scroll;
 	top: 630px;
 	left: 688px;
 	border-radius: 10px;
@@ -314,10 +315,11 @@ li:hover {
 }
 .ModalFigure {
 	display: flex;
-	max-width: 76.86px;
+	width: 76.86px;
+	height: 102.57px;
 }
 .ModalFigure img {
-	width: 100%;
+	width: 76.86px;
 	height: 102.57px;	
 }
 .IconeTrash {

@@ -42,11 +42,9 @@ const filtres = document.querySelector(".filtres");
 // CONSTANTE MODAL 2
     const portfolioModal2 = document.getElementById("portfolioModal2");
     const feuilleModal2 = document.getElementById("feuilleModal2");
-    const BoutonNav = document.getElementById("BoutonNav");
-    const formulaire = document.getElementById("formulaire");
-    const formulaireModal2 = document.getElementById("formulaireModal2");
     const imageFormulaire = document.getElementById("image-formulaire");
 
+        
 
 /*portfolioModal2.addEventListener("click", (event) => {
     portfolioModal2.style.display = "none";
@@ -207,12 +205,39 @@ if (token) {
             portfolioModal2.style.display = "flex";
 
         // MODAL 2
+            // Crée le div pour BoutonNav
+            const BoutonNav = document.createElement('div');
+            BoutonNav.id = 'BoutonNav';
+            feuilleModal2.appendChild(BoutonNav);
+
+            // Crée le div pour titreModalgallery2
+            const titreModal2 = document.createElement('div');
+            titreModal2.id = 'titreModalgallery2';
+            feuilleModal2.appendChild(titreModal2);
+
+            // Crée le div avec la classe et l'id formulaire
+            const formulaire = document.createElement('div');
+            formulaire.classList.add('formulaire');
+            formulaire.id = 'formulaire';
+            feuilleModal2.appendChild(formulaire);
+
+            // Crée le formulaire avec classe et id formulaireModal2
+            const formulaireModal2 = document.createElement('form');
+            formulaireModal2.action = '#';
+            formulaireModal2.method = 'post';
+            formulaireModal2.classList.add('formulaireModal2');
+            formulaireModal2.id = 'formulaireModal2';
+            feuilleModal2.appendChild(formulaireModal2);
+
 
             const iconeRetour = document.createElement("i");
             iconeRetour.classList.add("fa-solid", "fa-arrow-left", "ModaliconeRetour");
 
             const iconeCroix2 = document.createElement("i");
             iconeCroix2.classList.add("fa-solid", "fa-xmark", "Modal2iconeCroix");
+
+            const titreModalgallery2 = document.createElement("h2");
+            titreModalgallery2.textContent = "Ajout Photo";
 
             // Création du background "photo"
             const imageFormulaire = document.createElement("img");
@@ -290,6 +315,8 @@ if (token) {
             const dataListCategorie = document.createElement("datalist");
             dataListCategorie.id = "Categorie-list";
 
+            const barreModal2 = document.createElement("span");
+            barreModal2.classList.add("barreModal");
 
             fetch("http://localhost:5678/api/categories")
             .then(response => response.json())
@@ -313,12 +340,14 @@ if (token) {
             BoutonNav.appendChild(iconeRetour);
             BoutonNav.appendChild(iconeCroix2);
 
+            titreModal2.appendChild(titreModalgallery2);
+
             formulaire.appendChild(imageFormulaire);
             formulaire.appendChild(PhotoInput);
             formulaire.appendChild(labelPhoto);
             formulaire.appendChild(infoText);
 
-            feuilleModal2.appendChild(barreModal);
+            feuilleModal2.appendChild(barreModal2);
             feuilleModal2.appendChild(BtnValider);
             
             formulaireModal2.appendChild(labelTitre);
@@ -331,12 +360,7 @@ if (token) {
             function fermetureModal2() {
                 portfolioModal2.style.display = "none";
                 portfolioModal2.setAttribute("aria-hidden", "true");
-                feuilleModal2.removeChild(barreModal);
-                feuilleModal2.removeChild(BtnValider);
-                
-                BoutonNav.innerHTML = "";
-                formulaire.innerHTML = "";
-                formulaireModal2.innerHTML = "";
+                feuilleModal2.innerHTML = "";
             }
 
             function updateSubmitState() {
@@ -358,26 +382,14 @@ if (token) {
             iconeRetour.addEventListener("click", function () {
                 event.stopPropagation();
                 document.activeElement.blur(); // enlève le focus
-                portfolioModal2.style.display = "none";
-                portfolioModal2.setAttribute("aria-hidden", "true");
+                fermetureModal2();
     
-                feuilleModal2.removeChild(barreModal);
-                feuilleModal2.removeChild(BtnValider);
-                BoutonNav.removeChild(iconeCroix2);
-                BoutonNav.removeChild(iconeRetour);
-
-                formulaire.innerHTML = "";
-                formulaireModal2.innerHTML = "";
-
                 portfolioModal.setAttribute("aria-hidden", "false");
                 portfolioModal.style.display = "flex";
-
-                feuilleModal.prepend(iconeCroix);
-                feuilleModal.appendChild(barreModal);
             });
 
 
-            iconeCroix.addEventListener("click", function () {
+            iconeCroix2.addEventListener("click", function () {
                 document.activeElement.blur(); // enlève le focus
                 fermetureModal1();
                 fermetureModal2();
