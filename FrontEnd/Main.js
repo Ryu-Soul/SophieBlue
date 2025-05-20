@@ -181,7 +181,6 @@ if (token) {
             portfolioModal.setAttribute("aria-hidden", "true");
             Modalgallery.innerHTML = "";
             feuilleModal.innerHTML ="";
-            Modalcard();
             }
             
     // EventListener pour la Modal1
@@ -328,7 +327,6 @@ if (token) {
             .catch(error => console.log(error));
             
             function createSubmitList(name, id) {
-                
                 const option = document.createElement("option")
                 option.value = name;
                 option.dataset.id = id;
