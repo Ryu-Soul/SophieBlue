@@ -49,7 +49,6 @@ table {
 /** end reset css**/
 html {
     width: 100%;
-    height: 1024px;
 }
 body {
     display: flex;
@@ -119,7 +118,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 900px;
+    height: 500px;
 }
 .login {
     display: flex;
@@ -127,6 +126,9 @@ main {
     align-items: center;
     width: 379px;
     gap: 20px;
+}
+.login label {
+	width: 100%;
 }
 .login input {
     width: 100%;
@@ -152,8 +154,9 @@ main {
 }
 /** FOOTER**/
 footer {
-    width: 100%;
-    height: 60px;
+	background-color: white;
+	height: 60px;
+	width: 1440px;
 }
 footer nav ul {
 	display: flex;

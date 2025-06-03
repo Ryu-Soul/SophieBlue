@@ -354,7 +354,7 @@ if (token) {
             formulaireModal2.appendChild(inputCategorie);
             formulaireModal2.appendChild(dataListCategorie);
             
-            // FONCTION POUR LA MODAL 2
+            // FONCTION POUR LA FERMETURE MODAL 2
             function fermetureModal2() {
                 portfolioModal2.style.display = "none";
                 portfolioModal2.setAttribute("aria-hidden", "true");
@@ -512,6 +512,7 @@ function createFilterButtons() {
         const Btnfiltre = document.createElement("button");
         Btnfiltre.textContent = name;
         Btnfiltre.dataset.category = id;
+        
         filtres.appendChild(Btnfiltre);
         filtres.classList.add("btn");
 
