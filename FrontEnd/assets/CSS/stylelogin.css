@@ -146,7 +146,7 @@ main {
 }
 .erreur {
 	color: red;
-	font-size: x-large;
+	font-size: large;
 	font-weight: 500;
 }
 .login a {

@@ -17,7 +17,6 @@ BtnConnexion.addEventListener("click", async () => {
         alert("Vous devez rentrer un email et/ou un mot de passe");
         return;
     }
-    console.log("email :", emailValue + " Mot de passe :", passwordValue)
 
 
     fetch("http://localhost:5678/api/users/login", {
@@ -31,10 +30,10 @@ BtnConnexion.addEventListener("click", async () => {
     .then(response => {
         Erreurspan.textContent = "";
         if (response.status === 404) {
-            Erreurspan.textContent = "Adresse mail incorrect";
+            Erreurspan.textContent = "Adresse mail ou Mot de passe incorrect";
         }
         if (response.status === 401) {
-            Erreurspan.textContent = "Mot de passe incorrect";
+            Erreurspan.textContent = "Adresse mail ou Mot de passe incorrect";
         }
         if (response.status === 200) {
             window.location.href= "./index.html";

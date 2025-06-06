@@ -1,7 +1,24 @@
 /** First page **/
 
 /** Fetch pour récupérer les informations pour la gallery */
-const gallery = document.querySelector(".gallery");
+const portfolio = document.getElementById("portfolio");
+const entete = document.createElement("div");
+entete.classList.add("en-tete");
+const titrePortfolio = document.createElement("h2");
+titrePortfolio.innerText = "Mes projets";
+const modifié = document.createElement("div");
+modifié.id = "modifié";
+const filtres = document.createElement("div");
+filtres.classList.add("filtres")
+const gallery = document.createElement("div");
+gallery.classList.add("gallery");
+
+portfolio.appendChild(entete);
+portfolio.appendChild(filtres);
+portfolio.appendChild(gallery);
+
+entete.appendChild(titrePortfolio);
+entete.appendChild(modifié);
 
 fetch("http://localhost:5678/api/works")
     .then(response => response.json())
@@ -10,7 +27,7 @@ fetch("http://localhost:5678/api/works")
             card(element.imageUrl, element.title, element.categoryId, element.id);
         });
     })
-    .catch(error => console.log(error));
+    
 
 /** Fonction pour l'affichage des images */
 function card(imgUrl, title, categoryId, id) {
@@ -32,8 +49,6 @@ function card(imgUrl, title, categoryId, id) {
 
 /** ModeEdition et logOut */
 const token = localStorage.getItem("token");
-const filtres = document.querySelector(".filtres");
-
 
 // CONSTANTE MODAL 1
     const portfolioModal = document.getElementById("portfolioModal");
@@ -44,17 +59,12 @@ const filtres = document.querySelector(".filtres");
     const feuilleModal2 = document.getElementById("feuilleModal2");
     const imageFormulaire = document.getElementById("image-formulaire");
 
-        
-
-/*portfolioModal2.addEventListener("click", (event) => {
-    portfolioModal2.style.display = "none";
-})*/
-
-
 if (token) {
     const BtnConnexion = document.getElementById("login/out");
     const lienConnexion = document.getElementById("lienConnexion");
     BtnConnexion.innerText = "Logout";
+
+    portfolio.removeChild(filtres);
 
     BtnConnexion.addEventListener("click", function () {
         localStorage.removeItem("token");
@@ -64,7 +74,12 @@ if (token) {
         modeEdition.innerHTML = "";
         modeEdition.classList.remove("modeEdition");
         BtnModifié.innerHTML = "";
-        filtres.innerHTML = ""; 
+        portfolio.innerHTML ="";
+        portfolio.appendChild(entete);
+        portfolio.appendChild(filtres);
+        portfolio.appendChild(gallery);
+        entete.appendChild(titrePortfolio);
+        entete.appendChild(modifié);
         createFilterButtons();  
     });
 
@@ -79,7 +94,7 @@ if (token) {
 
     const icone = document.createElement("i");
     icone.classList.add("fa-solid", "fa-pen-to-square");
-    icone.style.color = "white";
+    icone.classList.add('iconeModeEdition');
     modeEdition.prepend(icone);
     modeEdition.append(" Mode édition");
 
@@ -91,7 +106,7 @@ if (token) {
     
     BtnModifié.appendChild(icone2);
 
-    const texteModifie = document.createTextNode("  Modifié");
+    const texteModifie = document.createTextNode("  Modifier");
     BtnModifié.appendChild(texteModifie);
 
 
@@ -99,7 +114,7 @@ if (token) {
     BtnModifié.addEventListener("click", function () {
         
         
-        const titreModalgallery = document.createElement("h2");
+        const titreModalgallery = document.createElement("h3");
         titreModalgallery.textContent = "Galerie photo";
 
         const Modalgallery = document.createElement("div");
@@ -134,7 +149,8 @@ if (token) {
                     Modalcard(element.imageUrl, element.id);
                 });
             })
-            .catch(error => console.log(error));
+            
+
 
         function Modalcard(imgUrl, id) {
             const Modalfigure = document.createElement("Modalfigure");
@@ -235,7 +251,7 @@ if (token) {
             const iconeCroix2 = document.createElement("i");
             iconeCroix2.classList.add("fa-solid", "fa-xmark", "Modal2iconeCroix");
 
-            const titreModalgallery2 = document.createElement("h2");
+            const titreModalgallery2 = document.createElement("h3");
             titreModalgallery2.textContent = "Ajout Photo";
 
             // Création du background "photo"
@@ -256,8 +272,7 @@ if (token) {
             PhotoInput.accept = "image/jpeg, image/png";
             PhotoInput.hidden = true;
             const PreviewImage = document.createElement("img");
-            PreviewImage.style.width = "129px";
-            PreviewImage.style.height = "193px";
+            PreviewImage.classList.add('PreviewImage');
             PreviewImage.hidden = true;
             formulaire.appendChild(PreviewImage);
 
@@ -286,6 +301,7 @@ if (token) {
             labelTitre.setAttribute("for", "titre");
             labelTitre.innerText = "Titre";
             
+            
 
             // Création de l'input "Titre"
             const inputTitre = document.createElement("input");
@@ -299,7 +315,7 @@ if (token) {
             const labelCategorie = document.createElement("label");
             labelCategorie.setAttribute("for", "Categorie");
             labelCategorie.innerText = "Catégorie";
-
+            
 
             // Création de l'input "Catégorie"
             const inputCategorie = document.createElement("input");
@@ -324,7 +340,7 @@ if (token) {
                     createSubmitList(element.name, element.id);
                 });
             })
-            .catch(error => console.log(error));
+            
             
             function createSubmitList(name, id) {
                 const option = document.createElement("option")
@@ -414,8 +430,8 @@ if (token) {
                         PreviewImage.src = e.target.result; // Donne la prévisualisation en base64
                     };
                     PreviewImage.hidden = false;
-                    PreviewImage.style.maxWidth = "129px";
-                    PreviewImage.style.maxHeight = "169px";
+                    PreviewImage.classList.remove('PreviewImage');
+                    PreviewImage.classList.add('PreviewImageUpload');
                     reader.readAsDataURL(file); // Lit le fichier image
                     imageFormulaire.hidden = true;
                     labelPhoto.style.display = "none";
@@ -446,7 +462,7 @@ if (token) {
                     alert("Vous devez rentrer un Titre et/ou une catégorie");
                     return;
                 }
-                console.log("Titre :", TitreValue + " Categorie :", CategorieValue)
+                
             
             
                 fetch("http://localhost:5678/api/works", {
@@ -479,7 +495,7 @@ if (token) {
                     return data;
                     })
                 
-                .catch (error => console.log(error))
+                
             })
         })                                               
     })
@@ -506,7 +522,7 @@ function createFilterButtons() {
                 createFilter(element.id, element.name);
             });
         })
-        .catch(error => console.log(error));
+        
 
     function createFilter(id, name) {
         const Btnfiltre = document.createElement("button");
@@ -514,7 +530,6 @@ function createFilterButtons() {
         Btnfiltre.dataset.category = id;
         
         filtres.appendChild(Btnfiltre);
-        filtres.classList.add("btn");
 
         Btnfiltre.addEventListener("click", function () {
             const figures = document.querySelectorAll(".gallery figure");

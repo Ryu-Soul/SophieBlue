@@ -71,6 +71,9 @@ body.modal-open {
     align-items : center;
 	z-index: 2000;
 }
+.iconeModeEdition {
+	color: white;
+}
 header {
 	display: flex;
 	justify-content: space-between;
@@ -80,7 +83,7 @@ main {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 20px;
+	gap: 39px;
 }
 section {
 	margin: 50px 0
@@ -151,6 +154,11 @@ li:hover {
 #portfolio {
 	display: flex;
 	flex-direction: column;
+	align-items: center;
+	gap: 50px;
+}
+.en-tete {
+	height: 36px;
 }
 #portfolio h2 {
 	text-align: center;
@@ -163,16 +171,16 @@ li:hover {
     width: 80px;
 	position: relative;
 	bottom : 50px;
-	left : 600px;
-}
-#portfolio .btn {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	gap: 5px;
-	margin-bottom: 1em;
+	left: 221px;
 }
 #portfolio button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-left: 20px;
+	padding-right: 20px;
+
+	min-width: 100px;
 	max-width: 198px;
 	height: 37px;
 	border-radius: 60px;
@@ -180,11 +188,24 @@ li:hover {
 	border-color: #1D6154;
 	background: none;
 	color: #1D6154;
+
+	font-family: "Syne";
+	font-weight: 700;
+	font-size: 16px;
+	line-height: 100%;
+	text-align: center;
 }
 #portfolio button:focus {
 	color: white;
 	background: #1D6154;
 	outline: none;
+}
+.filtres {
+	display: flex;
+	flex-direction: row;
+	width: 585px;
+	height: 38px;
+	gap: 10px;
 }
 .gallery {
 	width: 945px;
@@ -219,99 +240,31 @@ li:hover {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	width: 600px;
+	height: 688px;
 	gap: 50px;
-	width: 600px;
-	min-height: 600px;
-	overflow-y: scroll;
-	top: 630px;
-	left: 688px;
 	border-radius: 10px;
 	background: white;
-}
-.feuilleModal2 {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: space-around;
-	width: 600px;
-	height: 600px;
-	top: 630px;
-	left: 688px;
-	border-radius: 10px;
-	background: white;
-}
-.formulaire {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	background-color: #e8f1f6;
-  	border-radius: 5px;
-  	text-align: center;
-  	width: 100%;
-  	max-width: 420px;
-	height: 169px;
-  	margin: 0;
-}
-.formulaireModal2 {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-	gap: 5px;
-	width: 420px;
-	height: 200px;
-}
-.formulaireModal2 input {
-	height: 51px;
-}
-.upload-button {
-	display: inline-block;
-	padding: 10px 20px;
-	background-color: #cbd6dc;
-	color: #306685;
-	font-weight: 500;
-	font-size: 14px;
-	border-radius: 30px;
-	cursor: pointer;
-	margin-bottom: 10px;	  
-}
-.preview-icon {
-	width: 80px;
-	margin-bottom: 15px;
-	opacity: 0.5;
-}
-.info-text {
-	font-size: 12px;
-	color: #444;
-	margin: 0;
-}
-.BtnValider {
-	width: 237px;
-	height: 36px;
-	border-radius: 60px;
-	border-width: 1px;
-	background-color: #A7A7A7;
-	color: white;
-}
-.modalGallery {
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-	grid-row-gap: 10px;
-	width: 420px;
 }
 .Modal1iconeCroix {
 	position: relative;
 	top: 25px;
 	left: 250px;
+	font-size: 24px;
 }
-.Modal2iconeCroix {
-	position: relative;
-	top: 25px;
-	left: 250px;
+.feuilleModal h3 {
+	font-family: 'Work Sans';
+	font-weight: 400;
+	font-size: 26px;
+	line-height: 100%;
+	letter-spacing: 0%;
+	text-align: center;
 }
-.ModaliconeRetour {
-	position: relative;
-	top: 25px;
-	right: 250px;
+.modalGallery {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-row-gap: 30px;
+	width: 420px;
 }
 .ModalFigure {
 	display: flex;
@@ -336,6 +289,7 @@ li:hover {
 	position: relative;
 	width: 420px;
 	border-bottom: 1px solid;
+	color: #B3B3B3;
 }
 .photoBtn {
 	width: 237px;
@@ -343,6 +297,104 @@ li:hover {
 	border-radius: 60px;
 	border-width: 1px;
 	background-color: #1D6154;
+	color: white;
+}
+.feuilleModal2 {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 45px;
+	width: 630px;
+	height: 670px;
+	top: 630px;
+	left: 405px;
+	border-radius: 10px;
+	background: white;
+}
+.Modal2iconeCroix {
+	position: relative;
+	top: 25px;
+	left: 250px;
+	font-size: 24px;
+}
+.ModaliconeRetour {
+	position: relative;
+	top: 25px;
+	right: 250px;
+	font-size: 21px;
+}
+.feuilleModal2 h3 {
+	font-family: 'Work Sans';
+	font-weight: 400;
+	font-size: 26px;
+	line-height: 100%;
+	letter-spacing: 0%;
+	text-align: center;
+}
+.formulaire {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: #e8f1f6;
+  	border-radius: 5px;
+  	text-align: center;
+  	width: 100%;
+  	max-width: 420px;
+	height: 169px;
+  	margin: 0;
+}
+.formulaireModal2 {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	width: 420px;
+	height: 150px;
+}
+.formulaireModal2 label {
+	width: 32px;
+	height: 16px;
+}
+.formulaireModal2 input {
+	height: 45px;
+	width: 412px;
+	box-shadow: 0px 4px 14px 0px #00000017;
+	border: none;
+}
+.upload-button {
+	display: inline-block;
+	padding: 10px 20px;
+	background-color: #cbd6dc;
+	color: #306685;
+	font-weight: 500;
+	font-size: 14px;
+	border-radius: 30px;
+	cursor: pointer;
+	margin-bottom: 10px;	  
+}
+.preview-icon {
+	width: 80px;
+	margin-bottom: 15px;
+	opacity: 0.5;
+}
+.PreviewImage {
+	width: 129px;
+	height: 193px;
+}
+.PreviewImageUpload {
+	max-height:169px;
+	max-width: 129px;
+}
+.info-text {
+	font-size: 12px;
+	color: #444;
+	margin: 0;
+}
+.BtnValider {
+	width: 237px;
+	height: 36px;
+	border-radius: 60px;
+	border-width: 1px;
+	background-color: #A7A7A7;
 	color: white;
 }
 #contact {
