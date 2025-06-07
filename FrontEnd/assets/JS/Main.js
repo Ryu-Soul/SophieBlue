@@ -53,6 +53,7 @@ if (token) {
     const lienConnexion = document.getElementById("lienConnexion");
     btnConnexion.innerText = "Logout";
     portfolio.removeChild(filtres);
+    portfolio.style.gap = "92px";
     btnConnexion.addEventListener("click", function () {
         localStorage.removeItem("token");
         btnConnexion.innerText = "";
@@ -62,6 +63,7 @@ if (token) {
         modeEdition.classList.remove("modeEdition");
         btnModifié.innerHTML = "";
         portfolio.innerHTML ="";
+        portfolio.style.gap = "50px";
         portfolio.appendChild(entete);
         portfolio.appendChild(filtres);
         portfolio.appendChild(gallery);
