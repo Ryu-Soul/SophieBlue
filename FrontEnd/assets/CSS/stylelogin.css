@@ -141,10 +141,11 @@ main {
     color: white;
     background-color: #1D6154;
 }
-.erreur {
+.erreur-visible{
 	color: red;
 	font-size: large;
 	font-weight: 500;
+	transition: 1s ease-in-out;
 }
 .login a {
     text-decoration: underline;

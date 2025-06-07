@@ -6,6 +6,7 @@ const btnConnexion = document.getElementById("connexion");
 const erreurspan = document.querySelector(".erreur");
 /** Login**/
 btnConnexion.addEventListener("click", async () => {
+    erreurspan.classList.remove("erreur-visible");
     const emailValue = email.value.trim();
     const passwordValue = password.value.trim();
     if (emailValue === "" || passwordValue === "") {
@@ -23,13 +24,11 @@ btnConnexion.addEventListener("click", async () => {
     .then(response => {
         erreurspan.textContent = "";
         if (response.status === 404) {
-            alert("Erreur");
-            erreurspan.textContent = "";
+            erreurspan.classList.add("erreur-visible");
             erreurspan.textContent = "Adresse mail ou Mot de passe incorrect";
         }
         if (response.status === 401) {
-            alert("Erreur");
-            erreurspan.textContent = "";
+            erreurspan.classList.add("erreur-visible");
             erreurspan.textContent = "Adresse mail ou Mot de passe incorrect";
         }
         if (response.status === 200) {
@@ -37,8 +36,6 @@ btnConnexion.addEventListener("click", async () => {
         }
         return response.json()})
     .then(data => {
-        console.log(data);
         localStorage.setItem("token",JSON.stringify(data.token))
     })
-    .catch (error => console.log(error))
 })
