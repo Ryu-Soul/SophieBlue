@@ -7,10 +7,12 @@ const erreurspan = document.querySelector(".erreur");
 /** Login**/
 btnConnexion.addEventListener("click", async () => {
     erreurspan.classList.remove("erreur-visible");
+    void erreurspan.offsetWidth;
     const emailValue = email.value.trim();
     const passwordValue = password.value.trim();
     if (emailValue === "" || passwordValue === "") {
-        alert("Vous devez rentrer un email et/ou un mot de passe");
+        erreurspan.classList.add("erreur-visible");
+        erreurspan.textContent = "Vous devez remplir le formulaire";
         return;
     }
     fetch("http://localhost:5678/api/users/login", {

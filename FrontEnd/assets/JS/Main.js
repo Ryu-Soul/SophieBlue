@@ -96,6 +96,8 @@ if (token) {
         iconeCroix.classList.add("fa-solid", "fa-xmark", "Modal1iconeCroix");
         const barreModal = document.createElement("span");
         barreModal.classList.add("barreModal");
+        const erreurSpanTrash = document.createElement("span");
+        erreurSpanTrash.classList.add("erreur-Span");
         const btnAjoutPhoto = document.createElement("button");
         btnAjoutPhoto.classList.add("photoBtn");
         btnAjoutPhoto.innerText = "Ajouter une photo";
@@ -105,6 +107,7 @@ if (token) {
         feuilleModal.appendChild(titreModalgallery);
         feuilleModal.appendChild(modalgallery);
         feuilleModal.appendChild(barreModal);
+        feuilleModal.appendChild(erreurSpanTrash);
         feuilleModal.appendChild(btnAjoutPhoto);
         // Fonction pour la Modal1
         // Fonction création des images modal1
@@ -129,6 +132,7 @@ if (token) {
             modalfigure.appendChild(modalTrash);
             modalgallery.appendChild(modalfigure);
             modalTrash.addEventListener("click", function(e) {
+            erreurSpanTrash.classList.remove("erreur-Span");
                 fetch(`http://localhost:5678/api/works/${modalfigure.dataset.id}`, {
                     method : "DELETE",
                     headers: {
@@ -138,13 +142,16 @@ if (token) {
                 })
                 .then(response => {
                     if (response.status === 401) {
-                        alert("non autorisé");
+                        erreurSpanTrash.classList.add("erreur-Span");
+                        erreurSpanTrash.innerText = "Non autorisé";
                         }
                     if (response.status === 500) {
-                        alert("comportement inattendu");
+                        erreurSpanTrash.classList.add("erreur-Span");
+                        erreurSpanTrash.innerText = "Erreur serveur";
                         }
                     if (response.status === 204) {
-                        alert("l'élement a bien été supprimé");
+                        erreurSpanTrash.classList.add("erreur-Span");
+                        erreurSpanTrash.innerText = "Element supprimé";
                         modalfigure.remove()
                         const figureToDelete = document.querySelector(`.gallery figure[data-id="${id}"]`);
                         figureToDelete.remove()
@@ -227,7 +234,11 @@ if (token) {
             // Création du bouton "Valider
             const btnValider = document.createElement("button");
             btnValider.classList.add("BtnValider");
+            btnValider.disabled = "true";
             btnValider.innerText = "Valider";
+            // Création de l'alert pour les erreurs
+            const erreurSpanPhoto = document.createElement("span");
+            erreurSpanPhoto.classList.add("erreur-SpanPhoto");
             // Création de l'info text
             const infoText = document.createElement("p");
             infoText.innerText = "jpg, png : 4mo max";
@@ -284,6 +295,7 @@ if (token) {
             formulaire.appendChild(labelPhoto);
             formulaire.appendChild(infoText);
             feuilleModal2.appendChild(barreModal2);
+            feuilleModal2.appendChild(erreurSpanPhoto);
             feuilleModal2.appendChild(btnValider);
             formulaireModal2.appendChild(labelTitre);
             formulaireModal2.appendChild(inputTitre);
@@ -293,7 +305,7 @@ if (token) {
             function fermetureModal2() {
                 portfolioModal2.style.display = "none";
                 portfolioModal2.setAttribute("aria-hidden", "true");
-                feuilleModal2.innerHTML = "";
+                feuilleModal2.innerHTML = ""; 
             }
             function updateSubmitState() {
             const hasFile    = photoInput.files.length > 0;
@@ -313,6 +325,7 @@ if (token) {
                 event.stopPropagation();
                 document.activeElement.blur(); // enlève le focus
                 fermetureModal2();
+                erreurSpanTrash.textContent = "";
                 portfolioModal.setAttribute("aria-hidden", "false");
                 portfolioModal.style.display = "flex";
             });
@@ -344,12 +357,15 @@ if (token) {
                     imageFormulaire.hidden = true;
                     labelPhoto.style.display = "none";
                     infoText.hidden = true;
+                    erreurSpanPhoto.textContent = "";
                 }
             });
             photoInput.addEventListener("change", updateSubmitState);
             inputTitre.addEventListener("input",    updateSubmitState);
             inputCategorie.addEventListener("input", updateSubmitState);
             btnValider.addEventListener("click", async () => {
+                erreurSpanPhoto.classList.remove("erreur-SpanPhoto");
+                void erreurSpanPhoto.offsetWidth;
                 const file = photoInput.files[0];
                 const titreValue = inputTitre.value.trim();
                 const selectedOption = [...inputCategorie.options].find(option => option.value === inputCategorie.value);
@@ -358,10 +374,6 @@ if (token) {
                 formData.append("image", file); // ← envoie le fichier tel quel
                 formData.append("title", titreValue);
                 formData.append("category", categorieValue);
-                if (titreValue === "" || categorieValue === "") {
-                    alert("Vous devez rentrer un Titre et/ou une catégorie");
-                    return;
-                }
                 fetch("http://localhost:5678/api/works", {
                     method : "POST",
                     headers: { 
@@ -372,20 +384,25 @@ if (token) {
                 .then(async response => {
                     const data = await response.json();
                     if (response.status === 400) {
-                        alert("Mauvaise requete");
+                        erreurSpanPhoto.classList.add("erreur-SpanPhoto");
+                        erreurSpanPhoto.textContent = "Mauvaise requete";
                     }
                     if (response.status === 401) {
-                        alert("Non authorisé");
+                        erreurSpanPhoto.classList.add("erreur-SpanPhoto");
+                        erreurSpanPhoto.textContent = "Non authorisé";
                     }
                     if (response.status === 500) {
-                        alert("Vous devez remplir tous les champs du formulaire.");
+                        erreurSpanPhoto.classList.add("erreur-SpanPhoto");
+                        erreurSpanPhoto.textContent = "Erreur inattendu";
                     }
                     if (response.status === 201) {
-                        alert("crée")
                         card(data.imageUrl, data.title, data.categoryId, data.id)
                         modalcard(data.imageUrl, data.id)
-                        fermetureModal1();
                         fermetureModal2();
+                        portfolioModal.setAttribute("aria-hidden", "false");
+                        portfolioModal.style.display = "flex";
+                        erreurSpanTrash.classList.add("erreur-Span");
+                        erreurSpanTrash.textContent = "L'image a été ajoutée";
                     }
                     return data;
                     })
