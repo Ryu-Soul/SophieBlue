@@ -310,8 +310,7 @@ if (token) {
             function updateSubmitState() {
             const hasFile    = photoInput.files.length > 0;
             const hasTitle   = inputTitre.value.trim() !== "";
-            const hasCategory = [...inputCategorie.options]
-                                    .some(opt => opt.value === inputCategorie.value);
+            const hasCategory = inputCategorie.value !== "";
             if (hasFile && hasTitle && hasCategory) {
                 btnValider.disabled = false;
                 btnValider.style.backgroundColor = "#1D6154";
